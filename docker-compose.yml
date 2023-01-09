@@ -480,6 +480,18 @@ services:
     ports:
       - "${GRAFANA_SERVICE_PORT}"
     logging: *logging
+    environment:
+      - GF_INSTALL_PLUGINS=pyroscope-datasource,pyroscope-panel
+
+  pyroscope:
+    image: 'pyroscope/pyroscope:latest'
+    ports:
+      - 4040:4040
+    command:
+      - server
+    environment:
+      - PYROSCOPE_LOG_LEVEL=info
+      - PYROSCOPE_WAIT_AFTER_STOP=true
 
   # OpenTelemetry Collector
   otelcol:
